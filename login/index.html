@@ -1,0 +1,91 @@
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            position: relative;
+        }
+        #background-img {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            object-fit: cover;
+            opacity: 0.5;
+        }
+        #principal {
+            margin-top: 20px;
+        }
+        form {
+            background: white;
+            display: inline-block;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1;
+        }
+        #rodape {
+            margin-top: 20px;
+            padding: 10px;
+            background: #333;
+            color: white;
+            position: relative;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <script src="js/script.js"></script>
+
+    <img id="background-img" src="imagens/2.png">
+    <div id="principal">
+        <h1>WebTrader Operações em Forex</h1>
+    </div>
+    
+    <h2>Login</h2>
+    <form action="login.php" method="POST">
+        E-mail:<br>
+        <input type="email" name="email" required><br>
+        Senha:<br>
+        <input type="password" name="senha" required><br>
+        <input type="submit" value="Logar">
+    </form>
+    
+    <h2>Cadastro</h2>
+    <form action="cadastro.php" method="POST">
+        Nome:<br>
+        <input type="text" name="nome" required><br>
+        E-mail:<br>
+        <input type="email" name="email" required><br>
+        CPF:<br>
+        <input type="text" name="cpf" required><br>
+        Senha:<br>
+        <input type="password" name="senha" required><br>
+        Repita Senha:<br>
+        <input type="password" name="confirma_senha" required><br>
+        Telefone:<br>
+        <input type="text" name="telefone"><br>
+        <input type="submit" value="Cadastrar">
+    </form>
+    
+    <div id="rodape">
+        Todos os Direitos Reservados
+    </div>
+    
+</body>
+</html>
