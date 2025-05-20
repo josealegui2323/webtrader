@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebTrader - Plataforma Profissional de Trading</title>
+    <style>
+        :root {
+            --primary-color: #2962ff;
+            --secondary-color: #1e88e5;
+            --accent-color: #ffd700;
+            --text-color: #333;
+            --light-text: #666;
+            --white: #ffffff;
+            --dark-bg: #1a237e;
+            --card-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            --gradient: linear-gradient(135deg, #1a237e, #0d47a1);
+            --glass-bg: rgba(255, 255, 255, 0.95);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #f5f5f5;
+            background-image: url('imagens/trading-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .header {
+            background: var(--gradient);
+            color: var(--white);
+            padding: 1.5rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('imagens/header-pattern.png');
+            background-size: cover;
+            opacity: 0.1;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .logo img {
+            height: 40px;
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            position: relative;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .main-content {
+            display: flex;
+            gap: 3rem;
+            align-items: stretch;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .info-section {
+            flex: 1;
+            min-width: 400px;
+            max-width: 600px;
+            background: var(--glass-bg);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            backdrop-filter: blur(10px);
+        }
+
+        .login-section {
+            background: var(--glass-bg);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            min-width: 380px;
+            max-width: 450px;
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark-bg);
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100px;
+            height: 4px;
+            background: var(--accent-color);
+            border-radius: 2px;
+        }
+
+        .features {
+            margin: 2rem 0;
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            background: var(--gradient);
+            color: var(--white);
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1.5rem;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .feature-text h3 {
+            margin-bottom: 0.5rem;
+            color: var(--dark-bg);
+            font-size: 1.2rem;
+        }
+
+        .feature-text p {
+            color: var(--light-text);
+            font-size: 0.95rem;
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid rgba(0,0,0,0.1);
+        }
+
+        .tab {
+            padding: 1rem 2rem;
+            font-weight: 600;
+            color: var(--light-text);
+            cursor: pointer;
+            transition: all 0.3s;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+        }
+
+        .tab.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+
+        .form-container {
+            display: none;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+
+        .form-container.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark-bg);
+        }
+
+        input, select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid rgba(0,0,0,0.1);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: rgba(255,255,255,0.9);
+        }
+
+        input:focus, select:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(41,98,255,0.1);
+        }
+
+        .phone-input {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .phone-input select {
+            width: 100px;
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            background: var(--gradient);
+            color: var(--white);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .login-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        .error-message {
+            color: #f44336;
+            font-size: 0.9rem;
+            margin-top: 0.25rem;
+        }
+
+        .footer {
+            background: var(--gradient);
+            color: var(--white);
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: auto;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('imagens/footer-pattern.png');
+            background-size: cover;
+            opacity: 0.1;
+        }
+
+        .market-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            background: rgba(255,255,255,0.9);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            min-width: 150px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--light-text);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .main-content {
+                flex-direction: column;
+            }
+
+            .info-section {
+                min-width: 100%;
+                padding: 1.5rem;
+            }
+
+            .login-section {
+                width: 100%;
+                min-width: 100%;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .market-stats {
+                gap: 1rem;
+            }
+
+            .stat-item {
+                min-width: calc(50% - 1rem);
+            }
+        }
+    </style>
+</head>
+<body >
+    <header class="header">
+        <div class="logo">
+            <img src="imagens/imagesbf.png" alt="WebTrader Logo">
+            WebTrader
+        </div>
+        <div class="tagline">Sua plataforma profissional de trading</div>
+    </header>
+    <h1 class="tagline">Sistema em Manutenção</h1>
+    <h2 class="tagline"> Obrigado por sua compreensão</2>
+    <!--<div class="container">
+        <div class="main-content">
+            <div class="info-section">
+                
+
+                <div class="market-stats">
+                    
+                    <div class="stat-item">
+                        <div class="stat-value">2%</div>
+                        <div class="stat-label">Taxa de Manutenção</div>
+                    </div>
+                </div>
+
+                <div class="features">
+                    <div class="feature-item">
+                        <div class="feature-icon">💰</div>
+                        <div class="feature-text">
+                            <h3>Depósitos Seguros</h3>
+                            <p>Realize depósitos e saques de forma rápida e segura com suporte a múltiplas redes.</p>
+                        </div>
+                    </div>
+
+                   
+
+                    <div class="feature-item">
+                        <div class="feature-icon">🔒</div>
+                        <div class="feature-text">
+                            <h3>Segurança Máxima</h3>
+                            <p>Sistema de segurança avançado com autenticação em duas etapas e criptografia.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="login-section">
+                <div class="tabs">
+                    <div class="tab active" onclick="showForm('login')">Login</div>
+                    <div class="tab" onclick="showForm('register')">Cadastro</div>
+                </div>
+
+                <!-- Formulário de Login 
+                <div id="loginForm" class="form-container active">
+                    <form class="login-form" action="login.php" method="POST">
+                        <div class="form-group">
+                            <label for="login-email">E-mail</label>
+                            <input type="email" id="login-email" name="email" required placeholder="Seu e-mail">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="login-senha">Senha</label>
+                            <input type="password" id="login-senha" name="senha" required placeholder="Sua senha">
+                        </div>
+                        
+                        <a href="recuperar_senha.php">Esqueceu sua senha?</a> 
+                       
+
+                        <button type="submit" class="login-button">Entrar na Plataforma</button>
+                    </form>
+                </div>
+
+                <!-- Formulário de Cadastro 
+                <div id="registerForm" class="form-container">
+                    <form class="login-form" action="cadastro.php" method="POST" onsubmit="return validateForm()">
+                        <div class="form-group">
+                            <label for="register-nome">Nome</label>
+                            <input type="text" id="register-nome" name="nome" required placeholder="Seu nome completo">                            
+                        </div>
+                        <div class="form-group">
+                            <label for="register-email">E-mail</label>
+                            <input type="email" id="register-email" name="email" required placeholder="Seu melhor e-mail">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="register-cpf">CPF</label>
+                            <input type="text" id="register-cpf" name="cpf" required placeholder="000.000.000-00" maxlength="14" oninput="maskCPF(this)">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="register-telefone">Telefone</label>
+                            <div class="phone-input">
+                                <select name="ddd" id="register-ddd" required>
+                                    <option value="">DDD</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>                                    
+                                    <option value="13">13</option>
+                                    <option value="14">14</option>
+                                    <option value="15">15</option>
+                                    <option value="16">16</option>
+                                    <option value="21">21</option>
+                                    
+                                </select>
+                                <input type="tel" id="register-telefone" name="telefone" required placeholder="00000-0000" maxlength="10" oninput="maskPhone(this)">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="register-senha">Senha</label>
+                            <input type="password" id="register-senha" name="senha" required placeholder="Mínimo 6 caracteres" minlength="6">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="register-confirma-senha">Confirme a Senha</label>
+                            <input type="password" id="register-confirma-senha" name="confirma_senha" required placeholder="Digite a senha novamente">
+                            <span id="senha-error" class="error-message"></span>
+                        </div>
+
+                        <button type="submit" class="login-button">Criar Conta</button>
+                    </form>
+                </div>
+            </div>
+        </div>s
+    </div>-->
+    <footer class="footer">
+        <p>&copy; 2025 WebTrader. A melhor plataforma de trading do Brasil.</p>
+    </footer>
+
+    <script>
+        // Função para alternar entre os formulários
+        function showForm(formType) {
+            const loginForm = document.getElementById('loginForm');
+            const registerForm = document.getElementById('registerForm');
+            const tabs = document.querySelectorAll('.tab');
+
+            if (formType === 'login') {
+                loginForm.classList.add('active');
+                registerForm.classList.remove('active');
+                tabs[0].classList.add('active');
+                tabs[1].classList.remove('active');
+            } else {
+                loginForm.classList.remove('active');
+                registerForm.classList.add('active');
+                tabs[0].classList.remove('active');
+                tabs[1].classList.add('active');
+            }
+        }
+
+        // Máscara para CPF
+        function maskCPF(input) {
+            let value = input.value.replace(/\D/g, '');
+            value = value.replace(/(\d{3})(\d)/, '$1.$2');
+            value = value.replace(/(\d{3})(\d)/, '$1.$2');
+            value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+            input.value = value;
+        }
+
+        // Máscara para telefone
+        function maskPhone(input) {
+            let value = input.value.replace(/\D/g, '');
+            value = value.replace(/(\d{5})(\d)/, '$1-$2');
+            input.value = value;
+        }
+
+        // Validação do formulário
+        function validateForm() {
+            const senha = document.getElementById('register-senha').value;
+            const confirmaSenha = document.getElementById('register-confirma-senha').value;
+            const senhaError = document.getElementById('senha-error');
+
+            if (senha !== confirmaSenha) {
+                senhaError.textContent = 'As senhas não coincidem';
+                return false;
+            }
+
+            senhaError.textContent = '';
+            return true;
+        }
+    </script>
+    <img src="imagens/trading-bg.jpg" alt="Background Image" style="display:none;">
+</body>
+</html>

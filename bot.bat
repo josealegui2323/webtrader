@@ -1,0 +1,1 @@
+python binance_eurusd_bot.py
